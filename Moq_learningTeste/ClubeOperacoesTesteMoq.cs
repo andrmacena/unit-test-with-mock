@@ -13,7 +13,7 @@ namespace Moq_learningTeste
         private Mock<ISocio> _mock;
 
         [TestMethod]
-        public void CalcularFreteTeste()
+        public void CalcularFreteTesteSucesso()
         {
             _mock = new Mock<ISocio>();
             _target = new Clube(_mock.Object);
@@ -30,6 +30,29 @@ namespace Moq_learningTeste
             _mock.Setup(x => x.GetSocio(It.IsAny<int>())).Returns(_socio);
 
             double esperado = 14;
+
+            double obtido = _target.CalcularFrete(_socio.SocioID);
+            Assert.AreEqual(esperado, obtido);
+        }
+
+        [TestMethod]
+        public void CalcularFreteTesteSocioIDInvalido()
+        {
+            _mock = new Mock<ISocio>();
+            _target = new Clube(_mock.Object);
+
+            Socio _socio = new Socio()
+            {
+                SocioID = 0,
+                Nome = "André",
+                Sobrenome = "Macena",
+                Idade = 21,
+                Limite = 5,
+            };
+
+            _mock.Setup(x => x.GetSocio(It.IsAny<int>())).Returns(_socio);
+
+            double esperado = -1;
 
             double obtido = _target.CalcularFrete(_socio.SocioID);
             Assert.AreEqual(esperado, obtido);
