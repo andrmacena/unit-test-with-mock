@@ -17,10 +17,17 @@ namespace Moq_learning
 
         public double CalcularFrete(int socioID)
         {
-            double socioValorFrete = 0;
-            Socio socio = _socio.GetSocio(socioID);
-            socioValorFrete = 10 + socio.Limite * 0.8;
-            return socioValorFrete;
+            if (socioID > 0)
+            {
+                double socioValorFrete = 0;
+                Socio socio = _socio.GetSocio(socioID);
+                socioValorFrete = 10 + socio.Limite * 0.8;
+                return socioValorFrete;
+            }
+            else
+            {
+                return -1;
+            }
         }
     }
 }
